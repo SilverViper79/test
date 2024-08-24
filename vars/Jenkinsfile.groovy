@@ -67,6 +67,7 @@ def call(){
             if (pipelineMetadata.stage?.deploy) {
 
                 if (pipelineMetadata.stage?.deploy?.k8s) {
+                    echo "k8s"
                     stageK8s(pipelineMetadata)
                 }
 
