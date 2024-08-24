@@ -1,3 +1,5 @@
+import static org.jenkinsci.plugins.pipeline.modeldefinition.Utils.readYaml
+
 def setEnvVarsFromYaml(String envFile) {
     def envVars = readYaml file: envFile
     envVars.each { key, value ->
