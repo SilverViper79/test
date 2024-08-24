@@ -68,15 +68,15 @@ def call(){
             echo "Pipeline Metadata: ${pipelineMetadata}"
             echo "Stage: ${pipelineMetadata?.pipeline}"
             echo "Deploy: ${pipelineMetadata?.pipeline?.deploy}"
-            if (pipelineMetadata.stage?.deploy) {
+            if (pipelineMetadata.pipeline?.deploy) {
                 echo "deploy"
 
-                if (pipelineMetadata.stage?.deploy?.k8s) {
+                if (pipelineMetadata.pipeline?.deploy?.k8s) {
                     echo "k8s"
                     stageK8s(pipelineMetadata)
                 }
 
-                if (pipelineMetadata.stage?.deploy?.lambda) {
+                if (pipelineMetadata.pipeline?.deploy?.lambda) {
                     echo "Lambda"
                 }
             }
