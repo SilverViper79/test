@@ -53,7 +53,7 @@ def stageK8s(Map pipelineMetadata){
 }
 
 
-def pipelineflow(){
+def call(){
     def pipelineMetadata = stageConfig()
     def envFilePath = 'config/env.yaml'
     def helmConfigPath = 'config/values.yaml'
@@ -83,13 +83,13 @@ def pipelineflow(){
     }
 }
 
-def call(){
-    node (label: any ) {
-        properties (
-                [disableConcurrentBuilds()]
-        )
-        ansiColor('xterm') {
-            pipelineflow()
-        }
-    }
-}
+//def call(){
+//    node (label: any ) {
+//        properties (
+//                [disableConcurrentBuilds()]
+//        )
+//        ansiColor('xterm') {
+//            pipelineflow()
+//        }
+//    }
+//}
