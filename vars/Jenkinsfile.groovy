@@ -54,7 +54,7 @@ def stageK8s(Map pipelineMetadata){
 
 
 def call(){
-    node (label: any ) {
+    node {
         def pipelineMetadata = stageConfig()
         def envFilePath = 'config/env.yaml'
         def helmConfigPath = 'config/values.yaml'
