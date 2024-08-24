@@ -65,7 +65,9 @@ def call(){
                 pipelineLogger.error("Helm config file not found: ${helmConfigPath}.")
             }
             echo "stage"
-
+            echo "Pipeline Metadata: ${pipelineMetadata}"
+            echo "Stage: ${pipelineMetadata?.stage}"
+            echo "Deploy: ${pipelineMetadata?.stage?.deploy}"
             if (pipelineMetadata.stage?.deploy) {
                 echo "deploy"
 
