@@ -92,5 +92,4 @@ def call(){
             pipelineflow()
         }
     }
-
 }
