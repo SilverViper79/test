@@ -49,7 +49,7 @@ def stageK8s(Map pipelineMetadata){
 
 def call(){
     node {
-        checkout scm
+        sh "git clone https://github.com/trainingdevsecops/Dummy.git"
         def pipelineMetadata = stageConfig()
         def envFilePath = 'config/env.yaml'
         def helmConfigPath = 'config/values.yaml'
