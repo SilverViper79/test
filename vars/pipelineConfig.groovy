@@ -3,7 +3,7 @@ def log(config){
 }
 
 def call(pipelineConfig = ".pipeline/config.yaml"){
-    utilFile.checkFile(pipelineConfig, "fatal")
+//    utilFile.checkFile(pipelineConfig, "fatal")
 
     def config = readYaml file: pipelineConfig
 
