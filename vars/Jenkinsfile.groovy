@@ -66,7 +66,7 @@ def call(){
             }
             echo "stage"
             echo "Pipeline Metadata: ${pipelineMetadata}"
-            echo "Stage: ${pipelineMetadata?.stage}"
+            echo "Stage: ${pipelineMetadata?.deploy}"
             echo "Deploy: ${pipelineMetadata?.stage?.deploy}"
             if (pipelineMetadata.stage?.deploy) {
                 echo "deploy"
