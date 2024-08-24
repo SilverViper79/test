@@ -6,7 +6,7 @@ def setEnvVarsFromYaml(String envFile) {
     }
 }
 
-def call(){
+def call(def config){
     def pipelineMetadata = stageConfig(config)
     def envFilePath = 'config/env.yaml'
     def helmConfigPath = 'config/values.yaml'
