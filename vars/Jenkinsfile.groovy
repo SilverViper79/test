@@ -63,8 +63,10 @@ def call(){
             if (!fileExists(helmConfigPath)) {
                 pipelineLogger.error("Helm config file not found: ${helmConfigPath}.")
             }
+            echo "stage"
 
             if (pipelineMetadata.stage?.deploy) {
+                echo "deploy"
 
                 if (pipelineMetadata.stage?.deploy?.k8s) {
                     echo "k8s"
