@@ -20,26 +20,23 @@ def stageConfig(){
     }
 }
 
-//def log(config){
-//    log("\n${utilMap.printNestedMap(config, "\t- ")}", "info")
-//}
-
 def pipelineConfig(pipelineConfig = ".pipeline/config.yaml"){
 //    utilFile.checkFile(pipelineConfig, "fatal")
 
     def config = readYaml file: pipelineConfig
 
-//    log("${config}", "debug")
     return config
 }
 
 def stages(Map pipelineMetadata) {
     stage('Helm Lint') {
-        utilK8s.lint(pipelineMetadata)
+        echo "Lint"
+        helmlint(pipelineMetadata)
     }
 
     stage('Deploy') {
-        utilK8s.apply(pipelineMetadata)
+        echo "Deploy"
+        helmapply(pipelineMetadata)
     }
 }
 
@@ -85,14 +82,3 @@ def call(){
         }
     }
 }
-
-//def call(){
-//    node (label: any ) {
-//        properties (
-//                [disableConcurrentBuilds()]
-//        )
-//        ansiColor('xterm') {
-//            pipelineflow()
-//        }
-//    }
-//}
