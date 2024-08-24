@@ -20,16 +20,16 @@ def stageConfig(){
     }
 }
 
-def log(config){
-    log("\n${utilMap.printNestedMap(config, "\t- ")}", "info")
-}
+//def log(config){
+//    log("\n${utilMap.printNestedMap(config, "\t- ")}", "info")
+//}
 
 def pipelineConfig(pipelineConfig = ".pipeline/config.yaml"){
 //    utilFile.checkFile(pipelineConfig, "fatal")
 
     def config = readYaml file: pipelineConfig
 
-    log("${config}", "debug")
+//    log("${config}", "debug")
     return config
 }
 
