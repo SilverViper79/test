@@ -21,7 +21,7 @@ def stageConfig(){
 
 def pipelineConfig(pipelineConfig = ".pipeline/config.yaml"){
     def config = readYaml file: pipelineConfig
-    pipelineLogger.info("${config}")
+    echo "${config}"
     return config
 }
 
