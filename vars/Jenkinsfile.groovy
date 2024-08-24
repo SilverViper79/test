@@ -54,32 +54,34 @@ def stageK8s(Map pipelineMetadata){
 
 
 def call(){
-    def pipelineMetadata = stageConfig()
-    def envFilePath = 'config/env.yaml'
-    def helmConfigPath = 'config/values.yaml'
-    try {
-        if (fileExists(envFilePath)) {
-            setEnvVarsFromYaml(envFilePath)
-        } else {
-            pipelineLogger.error("Environment file not found: ${envFilePath}")
-        }
-
-        if (!fileExists(helmConfigPath)) {
-            pipelineLogger.error("Helm config file not found: ${helmConfigPath}.")
-        }
-
-        if(pipelineMetadata.stage?.deploy) {
-
-            if(pipelineMetadata.stage?.deploy?.k8s) {
-                stageK8s(pipelineMetadata)
+    node (label: any ) {
+        def pipelineMetadata = stageConfig()
+        def envFilePath = 'config/env.yaml'
+        def helmConfigPath = 'config/values.yaml'
+        try {
+            if (fileExists(envFilePath)) {
+                setEnvVarsFromYaml(envFilePath)
+            } else {
+                pipelineLogger.error("Environment file not found: ${envFilePath}")
             }
 
-            if(pipelineMetadata.stage?.deploy?.lambda) {
-                echo "Lambda"
+            if (!fileExists(helmConfigPath)) {
+                pipelineLogger.error("Helm config file not found: ${helmConfigPath}.")
             }
+
+            if (pipelineMetadata.stage?.deploy) {
+
+                if (pipelineMetadata.stage?.deploy?.k8s) {
+                    stageK8s(pipelineMetadata)
+                }
+
+                if (pipelineMetadata.stage?.deploy?.lambda) {
+                    echo "Lambda"
+                }
+            }
+        } catch (Exception exception) {
+            throw exception
         }
-    } catch (Exception exception) {
-        throw exception
     }
 }
 
