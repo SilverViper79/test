@@ -12,10 +12,13 @@ def call(){
     def helmConfigPath = 'config/values.yaml'
     try {
         if (fileExists(envFilePath)) {
-            echo "Reading environment variables from ${envFilePath}"
             setEnvVarsFromYaml(envFilePath)
         } else {
-            error "Environment file not found: ${envFilePath}"
+            pipelineLogger.error("Environment file not found: ${envFilePath}")
+        }
+
+        if (!fileExists(helmConfigPath)) {
+            pipelineLogger.error("Helm config file not found: ${helmConfigPath}.")
         }
 
         if(pipelineMetadata.stage?.deploy) {

@@ -1,7 +1,0 @@
----
-pipeline:
-    logLevel: DEBUG
-    deploy:
-        k8s:
-          dry_run: true
-
