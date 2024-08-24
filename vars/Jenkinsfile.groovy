@@ -11,7 +11,6 @@ def stageConfig(){
     try{
         stage('init - pipeline'){
             pipelineMetadata = pipelineConfig()
-
             return pipelineMetadata
         }
     } catch (Exception exception) {
@@ -21,10 +20,8 @@ def stageConfig(){
 }
 
 def pipelineConfig(pipelineConfig = ".pipeline/config.yaml"){
-//    utilFile.checkFile(pipelineConfig, "fatal")
-
     def config = readYaml file: pipelineConfig
-
+    pipelineLogger.info("${config}")
     return config
 }
 
