@@ -8,6 +8,53 @@ def setEnvVarsFromYaml(String envFile) {
     }
 }
 
+def stageConfig(){
+    def pipelineMetadata
+    try{
+        stage('init - pipeline'){
+            pipelineMetadata = pipelineConfig()
+
+            return pipelineMetadata
+        }
+    } catch (Exception exception) {
+        currentBuild.result = 'FAILURE'
+        throw exception
+    }
+}
+
+def log(config){
+    log("\n${utilMap.printNestedMap(config, "\t- ")}", "info")
+}
+
+def pipelineConfig(pipelineConfig = ".pipeline/config.yaml"){
+//    utilFile.checkFile(pipelineConfig, "fatal")
+
+    def config = readYaml file: pipelineConfig
+
+    log("${config}", "debug")
+    return config
+}
+
+def stages(Map pipelineMetadata) {
+    stage('Helm Lint') {
+        utilK8s.lint(pipelineMetadata)
+    }
+
+    stage('Deploy') {
+        utilK8s.apply(pipelineMetadata)
+    }
+}
+
+def stageK8s(Map pipelineMetadata){
+    try{
+        stages(pipelineMetadata)
+    } catch (Exception exception) {
+        currentBuild.result = 'FAILURE'
+        throw exception
+    }
+}
+
+
 def call(){
     def pipelineMetadata = stageConfig()
     def envFilePath = 'config/env.yaml'
