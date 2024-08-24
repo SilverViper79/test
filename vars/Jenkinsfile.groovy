@@ -52,8 +52,8 @@ def call(){
         cleanWs()
         sh "git clone https://github.com/trainingdevsecops/Dummy.git"
         def pipelineMetadata = stageConfig()
-        def envFilePath = 'config/env.yaml'
-        def helmConfigPath = 'config/values.yaml'
+        def envFilePath = 'Dummy/config/env.yaml'
+        def helmConfigPath = 'Dummy/config/values.yaml'
         try {
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
