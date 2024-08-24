@@ -1,10 +1,10 @@
-def setEnvVarsFromYaml(String envFile) {
-    def envVars = readYaml file: envFile
-    envVars.each { key, value ->
-        // Set each key-value pair as an environment variable
-        env[key] = value
-    }
-}
+//def setEnvVarsFromYaml(String envFile) {
+//    def envVars = readYaml file: envFile
+//    envVars.each { key, value ->
+//        // Set each key-value pair as an environment variable
+//        env[key] = value
+//    }
+//}
 
 def stageConfig(){
     def pipelineMetadata
@@ -58,11 +58,11 @@ def call(){
     def envFilePath = 'config/env.yaml'
     def helmConfigPath = 'config/values.yaml'
     try {
-        if (fileExists(envFilePath)) {
-            setEnvVarsFromYaml(envFilePath)
-        } else {
-            pipelineLogger.error("Environment file not found: ${envFilePath}")
-        }
+//        if (fileExists(envFilePath)) {
+//            setEnvVarsFromYaml(envFilePath)
+//        } else {
+//            pipelineLogger.error("Environment file not found: ${envFilePath}")
+//        }
 
         if (!fileExists(helmConfigPath)) {
             pipelineLogger.error("Helm config file not found: ${helmConfigPath}.")
