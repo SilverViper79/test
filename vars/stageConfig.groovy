@@ -1,8 +1,8 @@
-def call(def config){
+def call(){
     def pipelineMetadata
     try{
         stage('init - pipeline'){
-            pipelineMetadata = pipelineConfig.init(config)
+            pipelineMetadata = pipelineConfig()
 
             return pipelineMetadata
         }
