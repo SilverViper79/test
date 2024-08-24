@@ -19,7 +19,7 @@ def stageConfig(){
     }
 }
 
-def pipelineConfig(pipelineConfig = ".pipeline/config.yaml"){
+def pipelineConfig(pipelineConfig = "Dummy/.pipeline/config.yaml"){
     def config = readYaml file: pipelineConfig
     echo "${config}"
     return config
