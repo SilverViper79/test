@@ -73,7 +73,7 @@ def call(){
             def envConfig = validateYamlFile(envFilePath)
             def helmVaulesConfig = validateYamlFile(helmConfigPath)
             echo "${helmVaulesConfig}"
-            echo "${helmVaulesConfig[namespace]}"
+            echo "${helmVaulesConfig['namespace']}"
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
             } else {
