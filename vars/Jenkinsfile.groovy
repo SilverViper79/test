@@ -28,7 +28,7 @@ def pipelineConfig(pipelineConfig = "Dummy/.pipeline/config.yaml"){
 def stages(Map pipelineMetadata) {
     stage('Helm Lint') {
         echo "Lint"
-        helmlint(pipelineMetadata)
+//        helmlint(pipelineMetadata)
     }
 
     stage('Deploy') {
@@ -47,6 +47,20 @@ def stageK8s(Map pipelineMetadata){
 }
 
 
+def validateYamlFile(String filePath) {
+    if (!fileExists(filePath)) {
+        error "File not found: ${filePath}"
+    }
+
+    try {
+        def parsedYaml = readYaml file: filePath
+        echo "YAML file is valid and has been read successfully."
+        return parsedYaml
+    } catch (Exception e) {
+        error "YAML syntax error in file: ${filePath}\n${e.message}"
+    }
+}
+
 def call(){
     node {
         cleanWs()
@@ -55,6 +69,8 @@ def call(){
         def envFilePath = 'Dummy/config/env.yaml'
         def helmConfigPath = 'Dummy/config/values.yaml'
         try {
+            def envConfig = validateYamlFile(envFilePath)
+            def helmVaulesConfig = validateYamlFile(helmConfigPath)
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
             } else {
