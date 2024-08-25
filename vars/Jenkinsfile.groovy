@@ -33,7 +33,7 @@ def stages(Map pipelineMetadata) {
 
     stage('Deploy') {
         echo "Deploy"
-        helmapply(pipelineMetadata)
+//        helmapply(pipelineMetadata)
     }
 }
 
@@ -71,6 +71,8 @@ def call(){
         try {
             def envConfig = validateYamlFile(envFilePath)
             def helmVaulesConfig = validateYamlFile(helmConfigPath)
+            echo envConfig
+            echo helmVaulesConfig
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
             } else {
