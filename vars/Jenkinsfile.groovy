@@ -72,6 +72,7 @@ def call(){
         try {
             def envConfig = validateYamlFile(envFilePath)
             def helmVaulesConfig = validateYamlFile(helmConfigPath)
+
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
             } else {
@@ -81,10 +82,6 @@ def call(){
             if (!fileExists(helmConfigPath)) {
                 pipelineLogger.error("Helm config file not found: ${helmConfigPath}.")
             }
-            echo "stage"
-            echo "Pipeline Metadata: ${pipelineMetadata}"
-            echo "Stage: ${pipelineMetadata?.pipeline}"
-            echo "Deploy: ${pipelineMetadata?.pipeline?.deploy}"
             if (pipelineMetadata.pipeline?.deploy) {
                 echo "deploy"
 
