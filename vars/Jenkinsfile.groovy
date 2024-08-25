@@ -55,6 +55,7 @@ def validateYamlFile(String filePath) {
     try {
         def parsedYaml = readYaml file: filePath
         echo "YAML file is valid and has been read successfully."
+        echo "YAML Content: ${parsedYaml}"
         return parsedYaml
     } catch (Exception e) {
         error "YAML syntax error in file: ${filePath}\n${e.message}"
@@ -71,8 +72,6 @@ def call(){
         try {
             def envConfig = validateYamlFile(envFilePath)
             def helmVaulesConfig = validateYamlFile(helmConfigPath)
-            echo envConfig
-            echo helmVaulesConfig
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
             } else {
