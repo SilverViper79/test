@@ -3,8 +3,8 @@ def setEnvVarsFromYaml(String envFile) {
     envVars.each { key, value ->
         // Set each key-value pair as an environment variable
         env[key] = value
-        def exportCommand = "export ${key}=${value}"
-        sh exportCommand
+//        def exportCommand = "export ${key}=${value}"
+//        sh exportCommand
     }
 
 }
