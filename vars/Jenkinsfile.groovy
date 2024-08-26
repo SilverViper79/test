@@ -4,6 +4,7 @@ def setEnvVarsFromYaml(String envFile) {
         // Set each key-value pair as an environment variable
         env[key] = value
     }
+
 }
 
 def stageConfig(){
@@ -77,10 +78,7 @@ def call(){
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
                 echo "-------"
-                echo "Environment Variables Set:"
-                envVars.each { key, value ->
-                    echo "${key}=${env[key]}"
-                }
+                sh "printenv"
                 echo "-------"
             } else {
                 pipelineLogger.error("Environment file not found: ${envFilePath}")
