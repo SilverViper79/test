@@ -55,7 +55,7 @@ def validateYamlFile(String filePath) {
     try {
         def parsedYaml = readYaml file: filePath
         echo "YAML file is valid and has been read successfully."
-//        echo "YAML Content: ${parsedYaml}"
+        echo "YAML Content: ${parsedYaml}"
         return parsedYaml
     } catch (Exception e) {
         error "YAML syntax error in file: ${filePath}\n${e.message}"
@@ -77,7 +77,10 @@ def call(){
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
                 echo "-------"
-                env
+                echo "Environment Variables Set:"
+                envVars.each { key, value ->
+                    echo "${key}=${env[key]}"
+                }
                 echo "-------"
             } else {
                 pipelineLogger.error("Environment file not found: ${envFilePath}")
