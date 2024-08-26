@@ -76,7 +76,9 @@ def call(){
             echo "${helmVaulesConfig['namespace']}"
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
+                echo "-------"
                 env
+                echo "-------"
             } else {
                 pipelineLogger.error("Environment file not found: ${envFilePath}")
             }
