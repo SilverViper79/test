@@ -10,8 +10,9 @@ def init(Map pipelineMetadata) {
 def helmStages(Map pipelineMetadata) {
     stage('Helm Lint') {
         echo "Helm Lint Stage"
-        echo "Helm Values Config: ${env.CHART_NAME}"  // Correct the reference to pipelineMetadata
-        helmLint(${env.CHART_NAME})
+        echo "Helm Values Config: ${env.CHART_NAME}"
+        def helmChartPath = "src/${env.CHART_NAME}"
+        helmLint(helmChartPath)
     }
 
     stage('Deploy') {
