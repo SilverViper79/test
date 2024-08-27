@@ -10,8 +10,8 @@ def call(filePath) {
     }
 }
 
-def pipelineConfig(filePath) {
-    def config = readYaml file: filePath
+def pipelineConfig(path) {
+    def config = readYaml file: path
     echo "${config}"
     return config
 }
