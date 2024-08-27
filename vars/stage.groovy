@@ -1,5 +1,5 @@
-def helm(Map pipelineMetadata){
-    try{
+def helm(Map pipelineMetadata) {
+    try {
         stages(pipelineMetadata)
     } catch (Exception exception) {
         currentBuild.result = 'FAILURE'
@@ -7,17 +7,16 @@ def helm(Map pipelineMetadata){
     }
 }
 
-
 def stages(Map pipelineMetadata) {
     stage('Helm Lint') {
         echo "Helm Lint Stage"
-        echo "Helm Values Config: ${helmVaulesConfig}"  // Print the config during Helm Lint
-//         helmlint(pipelineMetadata)
+        echo "Helm Values Config: ${pipelineMetadata.helmVaulesConfig}"  // Correct the reference to pipelineMetadata
+        // helmlint(pipelineMetadata)  // Uncomment when helmlint is implemented
     }
 
     stage('Deploy') {
         echo "Deploy Stage"
-        echo "Helm Values Config: ${helmVaulesConfig}"  // Print the config during Deploy
-        // helmapply(pipelineMetadata)
+        echo "Helm Values Config: ${pipelineMetadata.helmVaulesConfig}"  // Correct the reference to pipelineMetadata
+        // helmapply(pipelineMetadata)  // Uncomment when helmapply is implemented
     }
 }
