@@ -1,4 +1,5 @@
-def helmVaulesConfig // Declare the variable outside the stages
+// Declare the variable globally
+def helmVaulesConfig
 
 def setEnvVarsFromYaml(String envFile) {
     def envVars = readYaml file: envFile
