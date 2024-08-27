@@ -1,12 +1,10 @@
+def helmVaulesConfig // Declare the variable outside the stages
+
 def setEnvVarsFromYaml(String envFile) {
     def envVars = readYaml file: envFile
     envVars.each { key, value ->
-        // Set each key-value pair as an environment variable
         env[key] = value
-//        def exportCommand = "export ${key}=${value}"
-//        sh exportCommand
     }
-
 }
 
 def stageConfig(){
@@ -31,12 +29,12 @@ def pipelineConfig(pipelineConfig = "Dummy/.pipeline/config.yaml"){
 def stages(Map pipelineMetadata) {
     stage('Helm Lint') {
         echo "Lint"
-//        helmlint(pipelineMetadata)
+        // helmlint(pipelineMetadata)
     }
 
     stage('Deploy') {
         echo "Deploy"
-//        helmapply(pipelineMetadata)
+        // helmapply(pipelineMetadata)
     }
 }
 
@@ -48,7 +46,6 @@ def stageK8s(Map pipelineMetadata){
         throw exception
     }
 }
-
 
 def validateYamlFile(String filePath) {
     if (!fileExists(filePath)) {
@@ -77,29 +74,27 @@ def call(){
             def helmVaulesConfig = validateYamlFile(helmConfigPath)
             echo "${helmVaulesConfig}"
             echo "${helmVaulesConfig['namespace']}"
+
             if (fileExists(envFilePath)) {
                 setEnvVarsFromYaml(envFilePath)
                 echo "-------"
                 sh "printenv"
                 echo "-------"
             } else {
-                pipelineLogger.error("Environment file not found: ${envFilePath}")
+                echo "Environment file not found: ${envFilePath}"
             }
 
             if (!fileExists(helmConfigPath)) {
-                pipelineLogger.error("Helm config file not found: ${helmConfigPath}.")
+                echo "Helm config file not found: ${helmConfigPath}."
             }
-            if (pipelineMetadata.pipeline?.deploy) {
-                echo "deploy"
 
-                if (pipelineMetadata.pipeline?.deploy?.k8s) {
-                    echo "k8s"
-                    stageK8s(pipelineMetadata)
-                }
+            if (pipelineMetadata["pipeline"]["deploy"]["k8s"]) {
+                echo "k8s"
+                stageK8s(pipelineMetadata)
+            }
 
-                if (pipelineMetadata.pipeline?.deploy?.lambda) {
-                    echo "Lambda"
-                }
+            if (pipelineMetadata["pipeline"]["deploy"]["lambda"]) {
+                echo "Lambda"
             }
         } catch (Exception exception) {
             throw exception
