@@ -10,8 +10,8 @@ def call() {
 //        def pipelineMetadata = config.init(pipelineConfigPath)
 
         try {
-            setEnvVarsFromYaml(envFilePath)
-            parseYaml(helmConfigPath)
+            utils.setEnvVarsFromYaml(envFilePath)
+            utils.parseYaml(helmConfigPath)
             echo "-------"
             sh "printenv"
             echo "-------"
