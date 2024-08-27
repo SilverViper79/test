@@ -1,6 +1,6 @@
-def validateYaml(String filePath) {
+def loadYaml(String filePath) {
     try {
-        fileExists(filePath)
+        validateFile(filePath)
         def parsedYaml = readYaml file: filePath
         echo "YAML file is valid and has been read successfully."
         echo "YAML Content: ${parsedYaml}"
@@ -10,7 +10,7 @@ def validateYaml(String filePath) {
     }
 }
 
-def fileExists(String filePath) {
+def validateFile(String filePath) {
     try {
         if (!fileExists(filePath)) {
             error "File not found: ${filePath}"
@@ -21,7 +21,7 @@ def fileExists(String filePath) {
 }
 
 def setEnvVarsFromYaml(String filePath) {
-    validateYaml(filePath)
+    loadYaml(filePath)
     def envVars = readYaml file: filePath
     envVars.each { key, value ->
         env[key] = value
