@@ -1,8 +1,8 @@
-def call(configPath){
+def call(filePath){
     def pipelineMetadata
     try{
         stage('init - pipeline'){
-            pipelineMetadata = pipelineConfig(configPath)
+            pipelineMetadata = pipelineConfig(filePath)
             return pipelineMetadata
         }
     } catch (Exception exception) {
@@ -11,8 +11,8 @@ def call(configPath){
     }
 }
 
-def pipelineConfig(configPath){
-    def config = readYaml file: configPath
+def pipelineConfig(filePath){
+    def config = readYaml file: filePath
     echo "${config}"
     return config
 }
