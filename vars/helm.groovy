@@ -10,13 +10,40 @@ def init(Map pipelineMetadata) {
 def helmStages(Map pipelineMetadata) {
     stage('Helm Lint') {
         echo "Helm Lint Stage"
-        echo "Helm Values Config: ${pipelineMetadata}"  // Correct the reference to pipelineMetadata
-        // helmlint(pipelineMetadata)  // Uncomment when helmlint is implemented
+        echo "Helm Values Config: ${env.CHART_NAME}"  // Correct the reference to pipelineMetadata
+        helmLint(${env.CHART_NAME})
     }
 
     stage('Deploy') {
         echo "Deploy Stage"
         echo "Helm Values Config: ${pipelineMetadata}"  // Correct the reference to pipelineMetadata
         // helmapply(pipelineMetadata)  // Uncomment when helmapply is implemented
+    }
+}
+
+def helmLint(String helmChartPath) {
+    try {
+        sh "helm lint ${helmChartPath}"
+        echo "Helm linting completed successfully."
+    } catch (Exception e) {
+        error "Helm lint failed for chart at ${helmChartPath}.\n${e.message}"
+    }
+}
+
+def helmApply(String helmChartPath, String releaseName, String namespace = 'default', String valuesFile = null, boolean dryRun = false, boolean atomic = false, boolean wait = false, String timeout = '5m', boolean force = false) {
+    try {
+        sh """
+            helm upgrade --install ${releaseName} ${helmChartPath} \
+            --namespace ${namespace} \
+            ${valuesFile ? "--values ${valuesFile}" : ""} \
+            ${dryRun ? "--dry-run" : ""} \
+            ${atomic ? "--atomic" : ""} \
+            ${wait ? "--wait" : ""} \
+            ${timeout ? "--timeout ${timeout}" : ""} \
+            ${force ? "--force" : ""}
+        """
+        echo "Helm upgrade/install ${dryRun ? 'dry-run' : 'completed'} successfully for release: ${releaseName}."
+    } catch (Exception e) {
+        error "Helm upgrade/install failed for release: ${releaseName}.\n${e.message}"
     }
 }
