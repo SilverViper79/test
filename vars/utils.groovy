@@ -1,4 +1,4 @@
-def parseYaml(String filePath) {
+def validateYaml(String filePath) {
     try {
         fileExists(filePath)
         def parsedYaml = readYaml file: filePath
@@ -21,7 +21,7 @@ def fileExists(String filePath) {
 }
 
 def setEnvVarsFromYaml(String filePath) {
-    parseYaml(filePath)
+    validateYaml(filePath)
     def envVars = readYaml file: filePath
     envVars.each { key, value ->
         env[key] = value
