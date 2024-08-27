@@ -12,7 +12,7 @@ def stages(Map pipelineMetadata) {
     stage('Helm Lint') {
         echo "Helm Lint Stage"
         echo "Helm Values Config: ${helmVaulesConfig}"  // Print the config during Helm Lint
-        // helmlint(pipelineMetadata)
+//         helmlint(pipelineMetadata)
     }
 
     stage('Deploy') {
