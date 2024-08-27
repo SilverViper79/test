@@ -1,13 +1,13 @@
 def helm(Map pipelineMetadata) {
     try {
-        stages(pipelineMetadata)
+        helmStages(pipelineMetadata)
     } catch (Exception exception) {
         currentBuild.result = 'FAILURE'
         throw exception
     }
 }
 
-def stages(Map pipelineMetadata) {
+def helmStages(Map pipelineMetadata) {
     stage('Helm Lint') {
         echo "Helm Lint Stage"
         echo "Helm Values Config: ${pipelineMetadata.helmVaulesConfig}"  // Correct the reference to pipelineMetadata
