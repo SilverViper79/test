@@ -24,7 +24,7 @@ def helmStages(Map pipelineMetadata) {
 
 def helmLint(String helmChartPath) {
     try {
-        sh "helm lint ${helmChartPath}"
+        sh "/usr/local/bin/helm lint ${helmChartPath}"
         echo "Helm linting completed successfully."
     } catch (Exception e) {
         error "Helm lint failed for chart at ${helmChartPath}.\n${e.message}"
