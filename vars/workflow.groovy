@@ -11,6 +11,7 @@ def call() {
 
         try {
             utils.setEnvVarsFromYaml(envFilePath)
+            echo "-------"
             utils.parseYaml(helmConfigPath)
             echo "-------"
             sh "printenv"

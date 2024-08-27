@@ -11,8 +11,12 @@ def parseYaml(String filePath) {
 }
 
 def fileExists(String filePath) {
-    if (!fileExists(filePath)) {
-        error "File not found: ${filePath}"
+    try {
+        if (!fileExists(filePath)) {
+            error "File not found: ${filePath}"
+        }
+    } catch (Exception e) {
+        error "YAML syntax error in file: ${filePath}\n${e.message}"
     }
 }
 
