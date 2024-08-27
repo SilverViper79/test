@@ -1,4 +1,4 @@
-def call(filePath){
+def call(filePath) {
     def pipelineMetadata
     try{
         stage('init - pipeline'){
