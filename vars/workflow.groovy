@@ -9,7 +9,7 @@ def call() {
         def envFilePath = 'Dummy/config/env.yaml'
         def helmConfigPath = 'Dummy/config/values.yaml'
 
-//        def pipelineMetadata = metadata.init(pipelineConfigPath)
+        def pipelineMetadata = metadata.init(pipelineConfigPath)
 
         try {
             echo "-------"
