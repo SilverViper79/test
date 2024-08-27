@@ -11,7 +11,7 @@ def helmStages(Map pipelineMetadata) {
     stage('Helm Lint') {
         echo "Helm Lint Stage"
         echo "Helm Values Config: ${env.CHART_NAME}"
-        def helmChartPath = "src/${env.CHART_NAME}"
+        def helmChartPath = "examples/charts/${env.CHART_NAME}"
         helmLint(helmChartPath)
     }
 
