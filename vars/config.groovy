@@ -1,9 +1,10 @@
 def init(filePath) {
-    try{
-        stage('init - pipeline'){
-            def pipelineMetadata = pipelineConfig(filePath)
-            return pipelineMetadata
+    try {
+        def pipelineMetadata = null
+        stage('init - pipeline') {
+            pipelineMetadata = pipelineConfig(filePath)
         }
+        return pipelineMetadata
     } catch (Exception exception) {
         currentBuild.result = 'FAILURE'
         throw exception
