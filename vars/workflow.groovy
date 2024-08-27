@@ -4,12 +4,12 @@ def call() {
         sh "git clone https://github.com/trainingdevsecops/Dummy.git"
         echo "---"
         def pipelineConfigPath = "Dummy/.pipeline/config.yaml"
-        def pipelineMetadata = readYaml file: pipelineConfigPath
+//        def pipelineMetadata = readYaml file: pipelineConfigPath
 
         def envFilePath = 'Dummy/config/env.yaml'
         def helmConfigPath = 'Dummy/config/values.yaml'
 
-//        def pipelineMetadata = config.init(pipelineConfigPath)
+//        def pipelineMetadata = metadata.init(pipelineConfigPath)
 
         try {
             echo "-------"
