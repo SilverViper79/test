@@ -22,7 +22,7 @@ def fileExists(String filePath) {
 
 def setEnvVarsFromYaml(String filePath) {
     parseYaml(filePath)
-    def envVars = readYaml file: envFile
+    def envVars = readYaml file: filePath
     envVars.each { key, value ->
         env[key] = value
     }
