@@ -2,6 +2,7 @@ def call() {
     node {
         try {
             stage('Checkout') {
+                echo "Starting Workflow"
                 cleanWs()
                 sh "git clone https://github.com/trainingdevsecops/Dummy.git"
                 echo "---"
