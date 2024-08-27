@@ -1,8 +1,7 @@
 def call(filePath) {
-    def pipelineMetadata
     try{
         stage('init - pipeline'){
-            pipelineMetadata = pipelineConfig(filePath)
+            def pipelineMetadata = pipelineConfig(filePath)
             return pipelineMetadata
         }
     } catch (Exception exception) {
