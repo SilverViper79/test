@@ -28,12 +28,14 @@ def pipelineConfig(pipelineConfig = "Dummy/.pipeline/config.yaml"){
 
 def stages(Map pipelineMetadata) {
     stage('Helm Lint') {
-        echo "Lint"
+        echo "Helm Lint Stage"
+        echo "Helm Values Config: ${helmVaulesConfig}"  // Print the config during Helm Lint
         // helmlint(pipelineMetadata)
     }
 
     stage('Deploy') {
-        echo "Deploy"
+        echo "Deploy Stage"
+        echo "Helm Values Config: ${helmVaulesConfig}"  // Print the config during Deploy
         // helmapply(pipelineMetadata)
     }
 }
