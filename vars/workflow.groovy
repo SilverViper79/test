@@ -23,7 +23,7 @@ def call() {
 
             if (pipelineMetadata["pipeline"]["deploy"]["k8s"]) {
                 echo "k8s"
-                stage(pipelineMetadata)
+                stage.helm(pipelineMetadata)
             }
 
             if (pipelineMetadata["pipeline"]["deploy"]["lambda"]) {

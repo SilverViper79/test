@@ -1,4 +1,4 @@
-def call(Map pipelineMetadata){
+def helm(Map pipelineMetadata){
     try{
         stages(pipelineMetadata)
     } catch (Exception exception) {
