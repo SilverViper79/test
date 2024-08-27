@@ -4,7 +4,7 @@ def call() {
         sh "git clone https://github.com/trainingdevsecops/Dummy.git"
         echo "---"
         def pipelineConfigPath = "Dummy/.pipeline/config.yaml"
-        def pipelineMetadata = readYaml file: filePath
+        def pipelineMetadata = readYaml file: pipelineConfigPath
 
         def envFilePath = 'Dummy/config/env.yaml'
         def helmConfigPath = 'Dummy/config/values.yaml'
