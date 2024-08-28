@@ -27,3 +27,34 @@ def setEnvVarsFromYaml(String filePath) {
         env[key] = value
     }
 }
+
+
+def helmLint(String helmChartPath) {
+    try {
+        sh "ls -ltr"
+        sh "/usr/local/bin/helm lint ${helmChartPath}"
+        echo "Helm linting completed successfully."
+    } catch (Exception e) {
+        error "Helm lint failed for chart at ${helmChartPath}.\n${e.message}"
+    }
+}
+
+def k8sApply(String helmChartPath, String releaseName, String namespace = 'default', String valuesFile = null, boolean dryRun = false, boolean atomic = false, boolean wait = false, String timeout = '5m', boolean force = false) {
+    try {
+        sh """
+            sh "ls -ltr"
+            sh "/usr/local/bin/helm lint ${helmChartPath}"
+            helm upgrade --install ${releaseName} ${helmChartPath} \
+            --namespace ${namespace} \
+            ${valuesFile ? "--values ${valuesFile}" : ""} \
+            ${dryRun ? "--dry-run" : ""} \
+            ${atomic ? "--atomic" : ""} \
+            ${wait ? "--wait" : ""} \
+            ${timeout ? "--timeout ${timeout}" : ""} \
+            ${force ? "--force" : ""}
+        """
+        echo "Helm upgrade/install ${dryRun ? 'dry-run' : 'completed'} successfully for release: ${releaseName}."
+    } catch (Exception e) {
+        error "Helm upgrade/install failed for release: ${releaseName}.\n${e.message}"
+    }
+}
