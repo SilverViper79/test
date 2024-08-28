@@ -13,9 +13,9 @@ def call() {
 
         try {
             echo "-------"
-            def envConfig = utils.setEnvVarsFromYaml(envFilePath)
+            def envConfig = utils.setEnvVarsFromYaml(pipelineMetadata["envFilePath"])
             echo "----setEnvVarsFromYaml---"
-            def helmConfig = utils.loadYaml(helmConfigPath)
+            def helmConfig = utils.loadYaml(pipelineMetadata["helmConfigPath"])
             echo "----parseYaml---"
             sh "printenv"
             echo "-------"

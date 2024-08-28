@@ -9,13 +9,11 @@ def init(Map pipelineMetadata) {
 
 def helmStages(Map pipelineMetadata) {
     stage('Helm Lint') {
-        def helmChartPath = "Dummy/charts/${env.CHART_NAME}"
-        utils.helmLint(helmChartPath)
+        utils.helmLint(pipelineMetadata['helmChartPath'])
     }
 
     stage('Deploy') {
         echo "Deploy Stage"
-        def helmChartPath = "Dummy/charts/${env.CHART_NAME}"
-        utils.helmApply(helmChartPath, 'hello-world')
+        utils.helmApply(pipelineMetadata['helmChartPath'], 'hello-world')
     }
 }
