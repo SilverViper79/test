@@ -19,6 +19,7 @@ def helmStages(Map pipelineMetadata) {
         echo "Deploy Stage"
         sh 'pwd'
         sh 'ls -ltr'
+        sh 'ls -ltr Dummy/'
         def helmChartPath = "Dummy/charts/${env.CHART_NAME}"
         echo "Helm Values Config: ${pipelineMetadata}"
         utils.helmApply(helmChartPath, 'hello-world')
