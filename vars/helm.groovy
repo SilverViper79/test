@@ -36,6 +36,8 @@ def helmLint(String helmChartPath) {
 def helmApply(String helmChartPath, String releaseName, String namespace = 'default', String valuesFile = null, boolean dryRun = false, boolean atomic = false, boolean wait = false, String timeout = '5m', boolean force = false) {
     try {
         sh """
+            sh "ls -ltr"
+            sh "/usr/local/bin/helm lint ${helmChartPath}"
             helm upgrade --install ${releaseName} ${helmChartPath} \
             --namespace ${namespace} \
             ${valuesFile ? "--values ${valuesFile}" : ""} \
