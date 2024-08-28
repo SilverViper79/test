@@ -31,7 +31,7 @@ def setEnvVarsFromYaml(String filePath) {
 
 def helmLint(String helmChartPath) {
     try {
-        sh "ls -ltr"
+        sh "ls -ltr ${helmChartPath}"
         sh "/usr/local/bin/helm lint ${helmChartPath}"
         echo "Helm linting completed successfully."
     } catch (Exception e) {
