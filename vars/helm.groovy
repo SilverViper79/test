@@ -18,7 +18,7 @@ def helmStages(Map pipelineMetadata) {
     stage('Deploy') {
         echo "Deploy Stage"
         def helmChartPath = "Dummy/charts/${env.CHART_NAME}"
-//        echo "Helm Values Config: ${helmConfig}"
+        echo "Helm Values Config: ${pipelineMetadata}"
         helmApply(helmChartPath, 'hello-world', dryRun = true)
     }
 }
