@@ -42,17 +42,15 @@ def helmLint(String helmChartPath) {
 def helmApply(String helmChartPath, String releaseName, String namespace = 'default', String valuesFile = null, boolean dryRun = false, boolean atomic = false, boolean wait = false, String timeout = '5m', boolean force = false) {
     try {
         sh """
-            sh "pwd'
-            sh "ls -ltr'
-            sh "/usr/local/bin/helm lint ${helmChartPath}"
+            sh '/usr/local/bin/helm lint ${helmChartPath}'
             helm upgrade --install ${releaseName} ${helmChartPath} \
             --namespace ${namespace} \
-            ${valuesFile ? "--values ${valuesFile}" : ""} \
-            ${dryRun ? "--dry-run" : ""} \
-            ${atomic ? "--atomic" : ""} \
-            ${wait ? "--wait" : ""} \
-            ${timeout ? "--timeout ${timeout}" : ""} \
-            ${force ? "--force" : ""}
+            ${valuesFile ? '--values ${valuesFile}' : ''} \
+            ${dryRun ? '--dry-run' : ''} \
+            ${atomic ? '--atomic' : ''} \
+            ${wait ? '--wait' : ''} \
+            ${timeout ? '--timeout ${timeout}' : ''} \
+            ${force ? '--force' : ''}
         """
         echo "Helm upgrade/install ${dryRun ? 'dry-run' : 'completed'} successfully for release: ${releaseName}."
     } catch (Exception e) {
