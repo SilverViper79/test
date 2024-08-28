@@ -7,7 +7,7 @@ def call() {
 
 
         def pipelineMetadata = metadata.init(pipelineConfigPath)
-        pipelineMetadata["helmChartPath"] = 'examples/charts/hello-world'
+        pipelineMetadata["helmChartPath"] = 'Dummy/charts/hello-world'
         pipelineMetadata["envFilePath"] = 'Dummy/config/env.yaml'
         pipelineMetadata["helmConfigPath"] = 'Dummy/config/values.yaml'
 
