@@ -14,6 +14,6 @@ def helmStages(Map pipelineMetadata) {
 
     stage('Deploy') {
         echo "Deploy Stage"
-        utils.helmApply(pipelineMetadata['helmChartPath'], 'hello-world')
+        utils.helmApply(pipelineMetadata['helmChartPath'], 'hello-world', valuesFile = pipelineMetadata['helmConfigPath'])
     }
 }
