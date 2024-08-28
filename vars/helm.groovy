@@ -17,7 +17,7 @@ def helmStages(Map pipelineMetadata) {
 
     stage('Deploy') {
         echo "Deploy Stage"
-        echo "Helm Values Config: ${pipelineMetadata}"  // Correct the reference to pipelineMetadata
+        echo "Helm Values Config: ${helmConfig}"  // Correct the reference to pipelineMetadata
         helmApply(helmChartPath, 'hello-world', dryRun = true)  // Uncomment when helmapply is implemented
     }
 }
