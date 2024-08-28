@@ -19,6 +19,6 @@ def helmStages(Map pipelineMetadata) {
         echo "Deploy Stage"
         def helmChartPath = "Dummy/charts/${env.CHART_NAME}"
         echo "Helm Values Config: ${pipelineMetadata}"
-        utils.k8sApply(helmChartPath, 'hello-world', dryRun = true)
+        utils.helmApply(helmChartPath, 'hello-world')
     }
 }

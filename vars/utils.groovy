@@ -39,7 +39,7 @@ def helmLint(String helmChartPath) {
     }
 }
 
-def k8sApply(String helmChartPath, String releaseName, String namespace = 'default', String valuesFile = null, boolean dryRun = false, boolean atomic = false, boolean wait = false, String timeout = '5m', boolean force = false) {
+def helmApply(String helmChartPath, String releaseName, String namespace = 'default', String valuesFile = null, boolean dryRun = false, boolean atomic = false, boolean wait = false, String timeout = '5m', boolean force = false) {
     try {
         sh """
             sh "ls -ltr"
