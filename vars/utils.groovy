@@ -43,13 +43,13 @@ def helmApply(String helmChartPath, String releaseName, String namespace = 'defa
     try {
         sh """
             /usr/local/bin/helm lint ${helmChartPath}
-            /usr/local/bin/helm  upgrade --install ${releaseName} ${helmChartPath} \
+            /usr/local/bin/helm upgrade --install ${releaseName} ${helmChartPath} \
             --namespace ${namespace} \
-            ${valuesFile ? '--values ${valuesFile}' : ''} \
+            ${valuesFile ? "--values ${valuesFile}" : ''} \
             ${dryRun ? '--dry-run' : ''} \
             ${atomic ? '--atomic' : ''} \
             ${wait ? '--wait' : ''} \
-            ${timeout ? '--timeout ${timeout}' : ''} \
+            ${timeout ? "--timeout ${timeout}" : ''} \
             ${force ? '--force' : ''}
         """
         echo "Helm upgrade/install ${dryRun ? 'dry-run' : 'completed'} successfully for release: ${releaseName}."
