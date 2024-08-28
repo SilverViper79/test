@@ -2,7 +2,6 @@ def call() {
     node {
         cleanWs()
         sh "git clone https://github.com/trainingdevsecops/Dummy.git"
-        sh "git clone https://github.com/helm/examples.git"
 
         // Define the path to the Helm chart
         def helmChartPath = 'examples/charts/hello-world'
