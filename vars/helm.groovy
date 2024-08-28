@@ -19,7 +19,7 @@ def helmStages(Map pipelineMetadata) {
         echo "Deploy Stage"
         def helmChartPath = "Dummy/charts/${env.CHART_NAME}"
         echo "Helm Values Config: ${pipelineMetadata}"
-        helmApply(helmChartPath, 'hello-world', dryRun = true)
+        k8sApply(helmChartPath, 'hello-world', dryRun = true)
     }
 }
 
@@ -33,7 +33,7 @@ def helmLint(String helmChartPath) {
     }
 }
 
-def helmApply(String helmChartPath, String releaseName, String namespace = 'default', String valuesFile = null, boolean dryRun = false, boolean atomic = false, boolean wait = false, String timeout = '5m', boolean force = false) {
+def k8sApply(String helmChartPath, String releaseName, String namespace = 'default', String valuesFile = null, boolean dryRun = false, boolean atomic = false, boolean wait = false, String timeout = '5m', boolean force = false) {
     try {
         sh """
             sh "ls -ltr"
