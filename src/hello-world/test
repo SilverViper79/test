@@ -1,0 +1,24 @@
+import json
+
+# Function to add data to JSON
+def add_data_to_json(file_path, new_data):
+    # Load existing data from the JSON file, or create a new structure if the file doesn't exist
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        data = {"data": []}
+    
+    # Add the new data to the 'data' list
+    data['data'].append(new_data)
+    
+    # Save the updated data back to the JSON file
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
+# Example usage
+file_path = 'data.json'
+new_data = {'key': 'value'}  # Change this to the key-value pair you want to add
+add_data_to_json(file_path, new_data)
+
+print(f"Data added to {file_path}")
