@@ -1,24 +1,25 @@
-import json
-
-# Function to add data to JSON
-def add_data_to_json(file_path, new_data):
-    # Load existing data from the JSON file, or create a new structure if the file doesn't exist
-    try:
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        data = {"data": []}
+def deployHelmChart(Map metadata) {
+    def helmChartPath = getHelmChartPath(metadata)
     
-    # Add the new data to the 'data' list
-    data['data'].append(new_data)
+    // Example command to deploy the Helm chart
+    echo "Deploying Helm chart from: ${helmChartPath}"
+    // Add your helm install/upgrade logic here
+}
+
+def getHelmChartPath(Map metadata) {
+    def templateName = metadata?.pipeline?.helm?.templateName
+    def templateVersion = metadata?.pipeline?.helm?.templateVersion
     
-    # Save the updated data back to the JSON file
-    with open(file_path, 'w') as file:
-        json.dump(data, file, indent=4)
+    if (!templateName) {
+        error "Helm chart name is not defined in the metadata."
+    }
 
-# Example usage
-file_path = 'data.json'
-new_data = {'key': 'value'}  # Change this to the key-value pair you want to add
-add_data_to_json(file_path, new_data)
-
-print(f"Data added to {file_path}")
+    if (templateVersion) {
+        def remotePath = "${templateName}:${templateVersion}"
+        echo "Using remote Helm chart: ${templateName} with version: ${templateVersion}"
+        return remotePath
+    } else {
+        echo "Using local Helm chart with name: ${templateName}"
+        return templateName
+    }
+}
